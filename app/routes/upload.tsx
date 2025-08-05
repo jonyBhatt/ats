@@ -19,7 +19,6 @@ export default function Upload() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusText, setStatusText] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [image, setImage] = useState("");
 
   const { auth, isLoading, fs, ai, kv } = usePuterStore();
 
@@ -85,7 +84,6 @@ export default function Upload() {
     await kv.set(`resume${uuid}`, JSON.stringify(data));
 
     setStatusText("Analyzing complete...");
-    setImage(data.imagePath);
     console.log("Data: ", data);
 
     // Wait a moment to show the completed image
@@ -125,11 +123,7 @@ export default function Upload() {
               <h2>{statusText}</h2>
               <picture>
                 <img
-                  src={
-                    statusText === "Analyzing complete..."
-                      ? image
-                      : "/images/resume-scan.gif"
-                  }
+                  src={"/images/resume-scan.gif"}
                   alt="resume"
                   className="w-full"
                 />
